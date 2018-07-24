@@ -54,6 +54,10 @@ namespace Crash.Helper
 			if (id == 0)
 			{
 				hotkeyLabel.Text = "[Hotkey pressed]";
+                Timer timer = new Timer(1000);
+                timer.Elapsed += OnHotkey;
+                timer.Enabled = true;
+
 				memory.SetZeroLives();
 			}
 		}
@@ -89,7 +93,42 @@ namespace Crash.Helper
 				int lives = memory.Lives;
 
 				foundLabel.Text = $"[Address found! ({lives} {(lives == 1 ? "life" : "lives")})]";
-			}
-		}
-	}
+            }
+
+            Timer timer = new Timer(500);
+            timer.Elapsed += OnTimer;
+            timer.AutoReset = true;
+            timer.Enabled = true;
+        }
+
+        private void OnTimer(Object source, System.Timers.ElapsedEventArgs e)
+        {
+            Invoke(new Action<int>(UpdateLives), memory.Lives);
+        }
+ 
+        private void OnHotkey(Object source, System.Timers.ElapsedEventArgs e)
+        {
+            Invoke(new Action<string>(UpdateHotkeyState), "Listening for hotkey...");
+        }
+
+        private void UpdateLives(int lives)
+        {
+            foundLabel.Text = $"Lives: {lives}";
+        }
+
+        private void UpdateHotkeyState(string text)
+        {
+            hotkeyLabel.Text = text;
+        }
+
+        private void foundLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void hotkeyLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
 }
