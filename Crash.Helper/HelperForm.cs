@@ -7,15 +7,16 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+using Crash.Helper.Controls;
 using Crash.Helper.Memory;
-using Timer = System.Timers.Timer;
+using Timer = System.Windows.Forms.Timer;
 
 namespace Crash.Helper
 {
-    public partial class HelperForm : Form
+	public partial class HelperForm : Form
 	{
 		[Flags]
-		public enum Modifiers : uint
+		public enum KeyModifiers
 		{
 			Alt = 1,
 			Control = 2,
@@ -30,12 +31,47 @@ namespace Crash.Helper
 		[DllImport("user32.dll")]
 		private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
-		private HelperMemory memory;
+		private CrashMemory memory;
+		private SettingsControl settings;
+		private Timer refreshTimer;
 
 		public HelperForm()
 		{
 			InitializeComponent();
-	        RegisterHotKey(Handle, 0, (int)Modifiers.Alt, (uint)Keys.D.GetHashCode());
+
+			memory = new CrashMemory();
+			memory.HookProcess();
+			memory.Lives.OnValueChange += OnLivesChanged;
+
+			settings = new SettingsControl(memory, data)
+			{
+				Location = new Point(data.Bounds.Right + 6, data.Bounds.Top)
+			};
+
+			Controls.Add(settings);
+
+			refreshTimer = new Timer();
+			refreshTimer.Interval = (int)(1000f / 30);
+			refreshTimer.Tick += (sender, e) =>
+			{
+				memory.Refresh();
+			};
+
+			refreshTimer.Start();
+
+			RegisterHotKey(Handle, 0, (uint)KeyModifiers.Alt, (uint)Keys.D.GetHashCode());
+		}
+
+		private void OnLivesChanged(int oldLives, int newLives)
+		{
+			if (settings.UnlimitedLives)
+			{
+				memory.Lives.Write(oldLives);
+			}
+			else
+			{
+				data.Lives = newLives;
+			}
 		}
 
 		protected override void WndProc(ref Message m)
@@ -48,87 +84,19 @@ namespace Crash.Helper
 			}
 
 			Keys key = (Keys)(((int)m.LParam >> 16) & 0xFFFF);
-			Modifiers modifier = (Modifiers)((int)m.LParam & 0xFFFF);
+			KeyModifiers modifier = (KeyModifiers)((int)m.LParam & 0xFFFF);
+
 			int id = m.WParam.ToInt32();
 
 			if (id == 0)
 			{
-				hotkeyLabel.Text = "[Hotkey pressed]";
-                Timer timer = new Timer(1000);
-                timer.Elapsed += OnHotkey;
-                timer.Enabled = true;
-
-				memory.SetZeroLives();
+				memory.Lives.Write(0);
 			}
 		}
 
-		private class KeyPressedEventArgs : EventArgs
-	    {
-		    public KeyPressedEventArgs(Modifiers modifier, Keys key)
-		    {
-			    Modifier = modifier;
-			    Key = key;
-		    }
-
-		    public Modifiers Modifier { get; }
-		    public Keys Key { get; }
-	    }
-
-		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+		private void HelperForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			UnregisterHotKey(Handle, 0);
 		}
-
-		private void HelperForm_Load(object sender, EventArgs e)
-		{
-		}
-
-		private void HelperForm_VisibleChanged(object sender, EventArgs e)
-		{
-			memory = new HelperMemory();
-			memory.HookProcess();
-
-			if (memory.LivesFound)
-			{
-				int lives = memory.Lives;
-
-				foundLabel.Text = $"[Address found! ({lives} {(lives == 1 ? "life" : "lives")})]";
-            }
-
-            Timer timer = new Timer(500);
-            timer.Elapsed += OnTimer;
-            timer.AutoReset = true;
-            timer.Enabled = true;
-        }
-
-        private void OnTimer(Object source, System.Timers.ElapsedEventArgs e)
-        {
-            Invoke(new Action<int>(UpdateLives), memory.Lives);
-        }
- 
-        private void OnHotkey(Object source, System.Timers.ElapsedEventArgs e)
-        {
-            Invoke(new Action<string>(UpdateHotkeyState), "Listening for hotkey...");
-        }
-
-        private void UpdateLives(int lives)
-        {
-            foundLabel.Text = $"Lives: {lives}";
-        }
-
-        private void UpdateHotkeyState(string text)
-        {
-            hotkeyLabel.Text = text;
-        }
-
-        private void foundLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void hotkeyLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-    }
+	}
 }

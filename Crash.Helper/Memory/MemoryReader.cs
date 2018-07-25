@@ -236,7 +236,7 @@ namespace Crash.Helper.Memory
 			WinAPI.WriteProcessMemory(targetProcess.Handle, address + last, value, value.Length, out bytesWritten);
 		}
 
-		public static int OffsetAddress(this Process targetProcess, ref IntPtr address, params int[] offsets)
+		private static int OffsetAddress(this Process targetProcess, ref IntPtr address, params int[] offsets)
 		{
 			byte[] buffer = new byte[is64Bit ? 8 : 4];
 			int bytesRead;
