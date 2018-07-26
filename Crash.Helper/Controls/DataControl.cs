@@ -17,9 +17,9 @@ namespace Crash.Helper.Controls
 			InitializeComponent();
 		}
 
-		public int Lives
+		public string Lives
 		{
-			set => livesLabel.Text = "Lives: " + (value == -1 ? "Unlimited" : value.ToString());
+			set => livesLabel.Text = "Lives: " + value;
 		}
 	}
 }

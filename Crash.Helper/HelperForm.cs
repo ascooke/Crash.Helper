@@ -70,7 +70,7 @@ namespace Crash.Helper
 			}
 			else
 			{
-				data.Lives = newLives;
+				data.Lives = newLives.ToString();
 			}
 		}
 

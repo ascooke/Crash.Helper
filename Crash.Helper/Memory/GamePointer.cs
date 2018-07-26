@@ -12,7 +12,7 @@ namespace Crash.Helper.Memory
 		private int[] offsets;
 		private T currentValue;
 
-		private bool suppressEvent;
+		private bool justWritten;
 
 		public GamePointer(params int[] offsets)
 		{
@@ -31,20 +31,25 @@ namespace Crash.Helper.Memory
 		public void Write(T value)
 		{
 			Process.Write(Process.MainModule.BaseAddress, value, offsets);
-			suppressEvent = true;
+			currentValue = value;
+			justWritten = true;
 		}
 
 		public void Refresh()
 		{
 			T newValue = Read();
 
-			if (!suppressEvent && !newValue.Equals(currentValue))
+			if (!justWritten && !newValue.Equals(currentValue))
 			{
 				OnValueChange?.Invoke(currentValue, newValue);
+
+				if (!justWritten)
+				{
+					currentValue = newValue;
+				}
 			}
 
-			currentValue = newValue;
-			suppressEvent = false;
+			justWritten = false;
 		}
 	}
 }

@@ -33,7 +33,7 @@ namespace Crash.Helper.Controls
 			if (unlimitedLivesCheckbox.Checked)
 			{
 				actualLives = memory.Lives.Read();
-				data.Lives = -1;
+				data.Lives = $"Unlimited (actual: {actualLives})";
 
 				if (actualLives == 0)
 				{
@@ -44,7 +44,7 @@ namespace Crash.Helper.Controls
 			}
 			else
 			{
-				data.Lives = actualLives;
+				data.Lives = actualLives.ToString();
 				actualLives = -1;
 			}
 		}
