@@ -15,15 +15,6 @@ namespace Crash.Helper
 {
 	public partial class HelperForm : Form
 	{
-		[Flags]
-		public enum KeyModifiers
-		{
-			Alt = 1,
-			Control = 2,
-			Shift = 4,
-			Win = 8
-		}
-
 		// See https://stackoverflow.com/questions/2450373/set-global-hotkeys-using-c-sharp.
 		[DllImport("user32.dll")]
 		private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
@@ -34,6 +25,7 @@ namespace Crash.Helper
 		private CrashMemory memory;
 		private SettingsControl settings;
 		private Timer refreshTimer;
+		private List<Hotkey> hotkeys;
 
 		public HelperForm()
 		{
@@ -58,6 +50,17 @@ namespace Crash.Helper
 			};
 
 			refreshTimer.Start();
+
+			hotkeys =  new List<Hotkey>();
+			hotkeys.Add(new Hotkey("Set zero lives: ", () =>
+			{
+				memory.Lives.Write(0);
+			}));
+
+			hotkeys.Add(new Hotkey("Toggle unlimited lives: ", () =>
+			{
+				settings.UnlimitedLives = !settings.UnlimitedLives;
+			}));
 
 			RegisterHotKey(Handle, 0, (uint)KeyModifiers.Alt, (uint)Keys.D.GetHashCode());
 		}
@@ -88,10 +91,7 @@ namespace Crash.Helper
 
 			int id = m.WParam.ToInt32();
 
-			if (id == 0)
-			{
-				memory.Lives.Write(0);
-			}
+			hotkeys[id].Callback();
 		}
 
 		private void HelperForm_FormClosing(object sender, FormClosingEventArgs e)

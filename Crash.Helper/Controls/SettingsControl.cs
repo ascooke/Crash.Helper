@@ -26,7 +26,11 @@ namespace Crash.Helper.Controls
 			InitializeComponent();
 		}
 
-		public bool UnlimitedLives => unlimitedLivesCheckbox.Checked;
+		public bool UnlimitedLives
+		{
+			get => unlimitedLivesCheckbox.Checked;
+			set => unlimitedLivesCheckbox.Checked = value;
+		}
 
 		private void unlimitedLivesCheckbox_CheckedChanged(object sender, EventArgs e)
 		{

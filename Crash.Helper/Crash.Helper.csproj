@@ -67,6 +67,7 @@
     <Compile Include="HelperForm.Designer.cs">
       <DependentUpon>HelperForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Hotkey.cs" />
     <Compile Include="Memory\CrashMemory.cs" />
     <Compile Include="Memory\GameMemory.cs" />
     <Compile Include="Memory\GamePointer.cs" />
