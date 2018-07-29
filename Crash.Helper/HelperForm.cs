@@ -6,15 +6,17 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Crash.Helper.Controls;
 using Crash.Helper.Memory;
-using Timer = System.Windows.Forms.Timer;
 
 namespace Crash.Helper
 {
 	public partial class HelperForm : Form
 	{
+		private const int Framerate = 10;
+
 		// See https://stackoverflow.com/questions/2450373/set-global-hotkeys-using-c-sharp.
 		[DllImport("user32.dll")]
 		private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
@@ -23,57 +25,55 @@ namespace Crash.Helper
 		private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
 		private CrashMemory memory;
-		private SettingsControl settings;
-		private Timer refreshTimer;
+		private DataControl dataControl;
+		private ProcessControl processControl;
 		private List<Hotkey> hotkeys;
+		private Timer refreshTimer;
 
 		public HelperForm()
 		{
 			InitializeComponent();
 
 			memory = new CrashMemory();
-			memory.HookProcess();
-			memory.Lives.OnValueChange += OnLivesChanged;
 
-			settings = new SettingsControl(memory, data)
-			{
-				Location = new Point(data.Bounds.Right + 6, data.Bounds.Top)
-			};
+			dataControl = new DataControl(memory);
+			processControl = new ProcessControl(memory, dataControl, this);
+			processControl.Location = new Point(7, 7);
+			dataControl.Location = new Point(7, processControl.Bounds.Bottom + 2);
 
-			Controls.Add(settings);
+			Controls.Add(processControl);
+			Controls.Add(dataControl);
 
 			refreshTimer = new Timer();
-			refreshTimer.Interval = (int)(1000f / 30);
+			refreshTimer.Interval = (int)(1000f / Framerate);
 			refreshTimer.Tick += (sender, e) =>
 			{
 				memory.Refresh();
 			};
 
-			refreshTimer.Start();
+			processControl.Rescan();
 
-			hotkeys =  new List<Hotkey>();
+			hotkeys = new List<Hotkey>();
 			hotkeys.Add(new Hotkey("Set zero lives: ", () =>
 			{
 				memory.Lives.Write(0);
 			}));
 
-			hotkeys.Add(new Hotkey("Toggle unlimited lives: ", () =>
-			{
-				settings.UnlimitedLives = !settings.UnlimitedLives;
-			}));
-
 			RegisterHotKey(Handle, 0, (uint)KeyModifiers.Alt, (uint)Keys.D.GetHashCode());
 		}
 
-		private void OnLivesChanged(int oldLives, int newLives)
+		public bool RefreshEnabled
 		{
-			if (settings.UnlimitedLives)
+			set
 			{
-				memory.Lives.Write(oldLives);
-			}
-			else
-			{
-				data.Lives = newLives.ToString();
+				if (value)
+				{
+					refreshTimer.Start();
+				}
+				else
+				{
+					refreshTimer.Stop();
+				}
 			}
 		}
 

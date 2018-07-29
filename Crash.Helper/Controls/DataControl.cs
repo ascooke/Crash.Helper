@@ -7,19 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Crash.Helper.Memory;
 
 namespace Crash.Helper.Controls
 {
 	public partial class DataControl : UserControl
 	{
-		public DataControl()
+		private CrashMemory memory;
+
+		public DataControl(CrashMemory memory)
 		{
+			this.memory = memory;
+
 			InitializeComponent();
 		}
 
-		public string Lives
+		public void Refresh()
 		{
-			set => livesLabel.Text = "Lives: " + value;
 		}
 	}
 }

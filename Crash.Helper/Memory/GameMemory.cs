@@ -21,6 +21,8 @@ namespace Crash.Helper.Memory
 		protected abstract void OnHook(Process process);
 		protected abstract void OnUnhook();
 
+		public bool ProcessHooked => process != null && !process.HasExited;
+
 		public bool HookProcess()
 		{
 			if (process != null && process.HasExited)

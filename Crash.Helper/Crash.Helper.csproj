@@ -55,11 +55,11 @@
     <Compile Include="Controls\DataControl.Designer.cs">
       <DependentUpon>DataControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\SettingsControl.cs">
+    <Compile Include="Controls\ProcessControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\SettingsControl.Designer.cs">
-      <DependentUpon>SettingsControl.cs</DependentUpon>
+    <Compile Include="Controls\ProcessControl.Designer.cs">
+      <DependentUpon>ProcessControl.cs</DependentUpon>
     </Compile>
     <Compile Include="HelperForm.cs">
       <SubType>Form</SubType>
@@ -77,8 +77,8 @@
     <EmbeddedResource Include="Controls\DataControl.resx">
       <DependentUpon>DataControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\SettingsControl.resx">
-      <DependentUpon>SettingsControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\ProcessControl.resx">
+      <DependentUpon>ProcessControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HelperForm.resx">
       <DependentUpon>HelperForm.cs</DependentUpon>
@@ -92,6 +92,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -105,6 +106,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\Add.png" />
+    <Content Include="Resources\Subtract.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
