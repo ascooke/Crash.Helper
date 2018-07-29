@@ -21,8 +21,8 @@ namespace Crash.Helper.Controls
 		private Timer processTimer;
 
 		private int retryTimeRemaining;
-
 		private bool scanning;
+		private string filler;
 
 		public ProcessControl(CrashMemory memory,DataControl data, HelperForm parent)
 		{
@@ -44,14 +44,16 @@ namespace Crash.Helper.Controls
 				}
 				else
 				{
-					processLabel.Text = $"Process not found. Retrying in {retryTimeRemaining}...";
+					processLabel.Text = $"Process {filler}. Retrying in {retryTimeRemaining}...";
 				}
 			};
+
+			filler = "not found";
 		}
 
-		public void Rescan()
+		public void Rescan(bool skipFirstCheck = false)
 		{
-			if (memory.HookProcess())
+			if (!skipFirstCheck && memory.HookProcess())
 			{
 				processLabel.Text = "Process attached.";
 				processLabel.ForeColor = Color.ForestGreen;
@@ -64,16 +66,24 @@ namespace Crash.Helper.Controls
 			else
 			{
 				retryTimeRemaining = RetryTime;
-				processLabel.Text = $"Process not found. Retrying in {RetryTime}...";
+				processLabel.Text = $"Process {filler}. Retrying in {RetryTime}...";
 				processTimer.Start();
 				scanning = true;
 			}
+		}
+
+		public void OnUnhook()
+		{
+			filler = "lost";
+			processLabel.ForeColor = SystemColors.ControlDarkDark;
+			Rescan(true);
 		}
 
 		private void helperCheckbox_CheckedChanged(object sender, EventArgs e)
 		{
 			if (helperCheckbox.Checked)
 			{
+				filler = "not found";
 				Rescan();
 			}
 			else

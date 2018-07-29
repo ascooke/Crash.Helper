@@ -54,24 +54,25 @@
 			this.dataBox.TabIndex = 0;
 			this.dataBox.TabStop = false;
 			this.dataBox.Text = "Data";
+			this.dataBox.EnabledChanged += new System.EventHandler(this.dataBox_EnabledChanged);
 			// 
 			// masksLabel
 			// 
 			this.masksLabel.AutoSize = true;
-			this.masksLabel.Location = new System.Drawing.Point(6, 52);
+			this.masksLabel.Location = new System.Drawing.Point(6, 54);
 			this.masksLabel.Name = "masksLabel";
-			this.masksLabel.Size = new System.Drawing.Size(53, 13);
+			this.masksLabel.Size = new System.Drawing.Size(50, 13);
 			this.masksLabel.TabIndex = 14;
-			this.masksLabel.Text = "Masks (2)";
+			this.masksLabel.Text = "Masks: 2";
 			// 
 			// livesLabel
 			// 
 			this.livesLabel.AutoSize = true;
 			this.livesLabel.Location = new System.Drawing.Point(6, 28);
 			this.livesLabel.Name = "livesLabel";
-			this.livesLabel.Size = new System.Drawing.Size(53, 13);
+			this.livesLabel.Size = new System.Drawing.Size(56, 13);
 			this.livesLabel.TabIndex = 13;
-			this.livesLabel.Text = "Lives (99)";
+			this.livesLabel.Text = "Lives: 999";
 			// 
 			// freezeLivesCheckbox
 			// 
@@ -82,6 +83,7 @@
 			this.freezeLivesCheckbox.TabIndex = 12;
 			this.freezeLivesCheckbox.Text = "Freeze lives";
 			this.freezeLivesCheckbox.UseVisualStyleBackColor = true;
+			this.freezeLivesCheckbox.CheckedChanged += new System.EventHandler(this.freezeLivesCheckbox_CheckedChanged);
 			// 
 			// livesDownButton
 			// 
@@ -91,6 +93,7 @@
 			this.livesDownButton.Size = new System.Drawing.Size(28, 28);
 			this.livesDownButton.TabIndex = 8;
 			this.livesDownButton.UseVisualStyleBackColor = true;
+			this.livesDownButton.Click += new System.EventHandler(this.livesDownButton_Click);
 			// 
 			// livesUpButton
 			// 
@@ -100,6 +103,7 @@
 			this.livesUpButton.Size = new System.Drawing.Size(28, 28);
 			this.livesUpButton.TabIndex = 9;
 			this.livesUpButton.UseVisualStyleBackColor = true;
+			this.livesUpButton.Click += new System.EventHandler(this.livesUpButton_Click);
 			// 
 			// masksUpButton
 			// 
@@ -126,7 +130,7 @@
 			this.Controls.Add(this.dataBox);
 			this.Enabled = false;
 			this.Name = "DataControl";
-			this.Size = new System.Drawing.Size(302, 219);
+			this.Size = new System.Drawing.Size(302, 194);
 			this.dataBox.ResumeLayout(false);
 			this.dataBox.PerformLayout();
 			this.ResumeLayout(false);

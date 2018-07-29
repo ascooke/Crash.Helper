@@ -46,10 +46,7 @@ namespace Crash.Helper
 
 			refreshTimer = new Timer();
 			refreshTimer.Interval = (int)(1000f / Framerate);
-			refreshTimer.Tick += (sender, e) =>
-			{
-				memory.Refresh();
-			};
+			refreshTimer.Tick += (sender, e) => { RefreshHelper(); };
 
 			processControl.Rescan();
 
@@ -75,6 +72,20 @@ namespace Crash.Helper
 					refreshTimer.Stop();
 				}
 			}
+		}
+
+		private void RefreshHelper()
+		{
+			if (!memory.HookProcess())
+			{
+				refreshTimer.Stop();
+				processControl.OnUnhook();
+				dataControl.Enabled = false;
+
+				return;
+			}
+
+			memory.Refresh();
 		}
 
 		protected override void WndProc(ref Message m)
