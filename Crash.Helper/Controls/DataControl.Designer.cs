@@ -61,18 +61,18 @@
 			this.masksLabel.AutoSize = true;
 			this.masksLabel.Location = new System.Drawing.Point(6, 54);
 			this.masksLabel.Name = "masksLabel";
-			this.masksLabel.Size = new System.Drawing.Size(50, 13);
+			this.masksLabel.Size = new System.Drawing.Size(47, 13);
 			this.masksLabel.TabIndex = 14;
-			this.masksLabel.Text = "Masks: 2";
+			this.masksLabel.Text = "Masks: -";
 			// 
 			// livesLabel
 			// 
 			this.livesLabel.AutoSize = true;
 			this.livesLabel.Location = new System.Drawing.Point(6, 28);
 			this.livesLabel.Name = "livesLabel";
-			this.livesLabel.Size = new System.Drawing.Size(56, 13);
+			this.livesLabel.Size = new System.Drawing.Size(41, 13);
 			this.livesLabel.TabIndex = 13;
-			this.livesLabel.Text = "Lives: 999";
+			this.livesLabel.Text = "Lives: -";
 			// 
 			// freezeLivesCheckbox
 			// 
