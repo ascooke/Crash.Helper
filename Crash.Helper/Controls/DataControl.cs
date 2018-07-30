@@ -17,12 +17,14 @@ namespace Crash.Helper.Controls
 
 		private int lives;
 		private int storedLives = 1;
+		private int masks;
 
 		public DataControl(CrashMemory memory)
 		{
 			this.memory = memory;
 
 			memory.Lives.OnValueChange += OnLivesChange;
+			memory.Masks.OnValueChange += OnMasksChange;
 
 			InitializeComponent();
 		}
@@ -35,8 +37,15 @@ namespace Crash.Helper.Controls
 			}
 			else
 			{
-				livesLabel.Text = "Lives: " + newLives;
+				lives = newLives;
+				RefreshLives();
 			}
+		}
+
+		private void OnMasksChange(int oldMasks, int newMasks)
+		{
+			masks = newMasks;
+			RefreshMasks();
 		}
 
 		private void livesUpButton_Click(object sender, EventArgs e)
@@ -66,6 +75,20 @@ namespace Crash.Helper.Controls
 			}
 		}
 
+		private void masksUpButton_Click(object sender, EventArgs e)
+		{
+			masks++;
+			memory.Masks.Write(masks);
+			RefreshMasks();
+		}
+
+		private void masksDownButton_Click(object sender, EventArgs e)
+		{
+			masks--;
+			memory.Masks.Write(masks);
+			RefreshMasks();
+		}
+
 		private void FreezeLives()
 		{
 			storedLives = memory.Lives.Read();
@@ -84,14 +107,22 @@ namespace Crash.Helper.Controls
 			}
 		}
 
+		private void RefreshMasks()
+		{
+			masksLabel.Text = "Masks: " + masks;
+			masksDownButton.Enabled = masks > 0;
+			masksUpButton.Enabled = masks < 2;
+		}
+
 		private void dataBox_EnabledChanged(object sender, EventArgs e)
 		{
 			if (Enabled)
 			{
 				lives = memory.Lives.Read();
-				livesLabel.Text = "Lives: " + lives;
-				livesDownButton.Enabled = lives > 0;
-				livesUpButton.Enabled = lives < 999;
+				RefreshLives();
+
+				masks = memory.Masks.Read();
+				RefreshMasks();
 
 				if (freezeLivesCheckbox.Checked)
 				{

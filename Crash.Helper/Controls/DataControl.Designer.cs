@@ -113,6 +113,7 @@
 			this.masksUpButton.Size = new System.Drawing.Size(28, 28);
 			this.masksUpButton.TabIndex = 11;
 			this.masksUpButton.UseVisualStyleBackColor = true;
+			this.masksUpButton.Click += new System.EventHandler(this.masksUpButton_Click);
 			// 
 			// masksDownButton
 			// 
@@ -122,6 +123,7 @@
 			this.masksDownButton.Size = new System.Drawing.Size(28, 28);
 			this.masksDownButton.TabIndex = 10;
 			this.masksDownButton.UseVisualStyleBackColor = true;
+			this.masksDownButton.Click += new System.EventHandler(this.masksDownButton_Click);
 			// 
 			// DataControl
 			// 
