@@ -20,9 +20,11 @@ namespace Crash.Helper
 
 	public class Hotkey
 	{
-		public Hotkey(string label, Action callback)
+		public Hotkey(string label, KeyModifiers modifier, uint key, Action callback)
 		{
 			Label = label;
+            Modifier = modifier;
+            Key = key;
 			Callback = callback;
 		}
 

@@ -28,17 +28,18 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.SuspendLayout();
-			// 
-			// HelperForm
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(318, 258);
-			this.Name = "HelperForm";
-			this.Text = "Crash Helper";
-			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.HelperForm_FormClosing);
-			this.ResumeLayout(false);
+            this.SuspendLayout();
+            // 
+            // HelperForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(318, 258);
+            this.Name = "HelperForm";
+            this.Text = "Crash Helper";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.HelperForm_FormClosing);
+            this.ResumeLayout(false);
 
 		}
 
