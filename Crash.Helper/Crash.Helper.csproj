@@ -55,6 +55,12 @@
     <Compile Include="Controls\DataControl.Designer.cs">
       <DependentUpon>DataControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\HotkeyControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\HotkeyControl.Designer.cs">
+      <DependentUpon>HotkeyControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ProcessControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -76,6 +82,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Controls\DataControl.resx">
       <DependentUpon>DataControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\HotkeyControl.resx">
+      <DependentUpon>HotkeyControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ProcessControl.resx">
       <DependentUpon>ProcessControl.cs</DependentUpon>

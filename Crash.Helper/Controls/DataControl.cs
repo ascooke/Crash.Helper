@@ -15,9 +15,7 @@ namespace Crash.Helper.Controls
 	{
 		private CrashMemory memory;
 
-		private int lives;
 		private int storedLives = 1;
-		private int masks;
 
 		public DataControl(CrashMemory memory)
 		{
@@ -37,29 +35,25 @@ namespace Crash.Helper.Controls
 			}
 			else
 			{
-				lives = newLives;
 				RefreshLives();
 			}
 		}
 
 		private void OnMasksChange(int oldMasks, int newMasks)
 		{
-			masks = newMasks;
 			RefreshMasks();
 		}
 
 		private void livesUpButton_Click(object sender, EventArgs e)
 		{
-			lives++;
-			memory.Lives.Write(lives);
-			RefreshLives();
+            int currentLives = memory.Lives.Read();
+            memory.Lives.Write(currentLives + 1);
 		}
 
 		private void livesDownButton_Click(object sender, EventArgs e)
-		{
-			lives--;
-			memory.Lives.Write(lives);
-			RefreshLives();
+        {
+            int currentLives = memory.Lives.Read();
+            memory.Lives.Write(currentLives - 1);
 		}
 
 		private void freezeLivesCheckbox_CheckedChanged(object sender, EventArgs e)
@@ -76,17 +70,15 @@ namespace Crash.Helper.Controls
 		}
 
 		private void masksUpButton_Click(object sender, EventArgs e)
-		{
-			masks++;
-			memory.Masks.Write(masks);
-			RefreshMasks();
+        {
+            int currentMasks = memory.Masks.Read();
+            memory.Masks.Write(currentMasks + 1);
 		}
 
 		private void masksDownButton_Click(object sender, EventArgs e)
-		{
-			masks--;
-			memory.Masks.Write(masks);
-			RefreshMasks();
+        {
+            int currentMasks = memory.Masks.Read();
+            memory.Masks.Write(currentMasks - 1);
 		}
 
 		private void FreezeLives()
@@ -97,6 +89,7 @@ namespace Crash.Helper.Controls
 
 		private void RefreshLives()
 		{
+            int lives = memory.Lives.Read();
 			livesDownButton.Enabled = lives > 0;
 			livesUpButton.Enabled = lives < 999;
 			livesLabel.Text = "Lives: " + lives;
@@ -108,8 +101,9 @@ namespace Crash.Helper.Controls
 		}
 
 		private void RefreshMasks()
-		{
-			masksLabel.Text = "Masks: " + masks;
+        {
+            int masks = memory.Masks.Read();
+            masksLabel.Text = "Masks: " + masks;
 			masksDownButton.Enabled = masks > 0;
 			masksUpButton.Enabled = masks < 2;
 		}
@@ -118,10 +112,7 @@ namespace Crash.Helper.Controls
 		{
 			if (Enabled)
 			{
-				lives = memory.Lives.Read();
 				RefreshLives();
-
-				masks = memory.Masks.Read();
 				RefreshMasks();
 
 				if (freezeLivesCheckbox.Checked)
@@ -130,5 +121,5 @@ namespace Crash.Helper.Controls
 				}
 			}
 		}
-	}
+    }
 }
