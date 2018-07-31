@@ -56,11 +56,15 @@
             // 
             // hotkeyBox
             // 
+            this.hotkeyBox.AutoSize = true;
+            this.hotkeyBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.hotkeyBox.Controls.Add(this.zeroLivesDescription);
             this.hotkeyBox.Controls.Add(this.zeroLivesHotkeyLabel);
-            this.hotkeyBox.Location = new System.Drawing.Point(4, 25);
+            this.hotkeyBox.Location = new System.Drawing.Point(0, 25);
+            this.hotkeyBox.Margin = new System.Windows.Forms.Padding(0);
+            this.hotkeyBox.MinimumSize = new System.Drawing.Size(250, 0);
             this.hotkeyBox.Name = "hotkeyBox";
-            this.hotkeyBox.Size = new System.Drawing.Size(295, 187);
+            this.hotkeyBox.Size = new System.Drawing.Size(250, 66);
             this.hotkeyBox.TabIndex = 0;
             this.hotkeyBox.TabStop = false;
             this.hotkeyBox.Text = "Hotkeys";
@@ -70,7 +74,8 @@
             this.enableCheckBox.AutoSize = true;
             this.enableCheckBox.Checked = true;
             this.enableCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.enableCheckBox.Location = new System.Drawing.Point(4, 3);
+            this.enableCheckBox.Location = new System.Drawing.Point(0, 3);
+            this.enableCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.enableCheckBox.Name = "enableCheckBox";
             this.enableCheckBox.Size = new System.Drawing.Size(99, 17);
             this.enableCheckBox.TabIndex = 2;
@@ -83,11 +88,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.enableCheckBox);
             this.Controls.Add(this.hotkeyBox);
             this.Enabled = false;
+            this.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
             this.Name = "HotkeyControl";
-            this.Size = new System.Drawing.Size(302, 215);
+            this.Size = new System.Drawing.Size(250, 91);
             this.hotkeyBox.ResumeLayout(false);
             this.hotkeyBox.PerformLayout();
             this.ResumeLayout(false);

@@ -34,6 +34,11 @@ namespace Crash.Helper.Controls
             InitializeComponent();
         }
 
+        public HotkeyControl()
+        {
+            InitializeComponent();
+        }
+
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);

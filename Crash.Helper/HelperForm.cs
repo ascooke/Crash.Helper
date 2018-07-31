@@ -29,22 +29,27 @@ namespace Crash.Helper
 
 			memory = new CrashMemory();
 
-			dataControl = new DataControl(memory);
+            dataControl = new DataControl(memory);
             hotkeyControl = new HotkeyControl(memory);
-            processControl = new ProcessControl(memory, dataControl, hotkeyControl, this);
-			processControl.Location = new Point(7, 7);
-			dataControl.Location = new Point(7, processControl.Bounds.Bottom + 2);
-            hotkeyControl.Location = new Point(7, dataControl.Bounds.Bottom + 2);
+            processControl = new ProcessControl(memory, dataControl, hotkeyControl, this)
+            {
+                Location = new Point(0, 0)
+            };
+			dataControl.Location = new Point(0, processControl.Bounds.Bottom);
+            hotkeyControl.Location = new Point(0, dataControl.Bounds.Bottom);
 
-			Controls.Add(processControl);
-			Controls.Add(dataControl);
-            Controls.Add(hotkeyControl);
+			flowLayoutPanel.Controls.Add(processControl);
+			flowLayoutPanel.Controls.Add(dataControl);
+            flowLayoutPanel.Controls.Add(hotkeyControl);
 
-			refreshTimer = new Timer();
-			refreshTimer.Interval = (int)(1000f / Framerate);
-			refreshTimer.Tick += (sender, e) => { RefreshHelper(); };
+			refreshTimer = new Timer
+            {
+                Interval = (int)(1000f / Framerate),
+            };
+            refreshTimer.Tick += (sender, e) => { RefreshHelper(); };
 
-			processControl.Rescan();
+
+            processControl.Rescan();
 		}
 
 		public bool RefreshEnabled

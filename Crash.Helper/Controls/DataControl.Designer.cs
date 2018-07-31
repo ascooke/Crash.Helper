@@ -110,6 +110,8 @@
             // 
             // dataBox
             // 
+            this.dataBox.AutoSize = true;
+            this.dataBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.dataBox.Controls.Add(this.masksLabel);
             this.dataBox.Controls.Add(this.livesLabel);
             this.dataBox.Controls.Add(this.freezeLivesCheckbox);
@@ -117,9 +119,11 @@
             this.dataBox.Controls.Add(this.livesUpButton);
             this.dataBox.Controls.Add(this.masksUpButton);
             this.dataBox.Controls.Add(this.masksDownButton);
-            this.dataBox.Location = new System.Drawing.Point(4, 4);
+            this.dataBox.Location = new System.Drawing.Point(0, 0);
+            this.dataBox.Margin = new System.Windows.Forms.Padding(0);
+            this.dataBox.MinimumSize = new System.Drawing.Size(250, 0);
             this.dataBox.Name = "dataBox";
-            this.dataBox.Size = new System.Drawing.Size(295, 187);
+            this.dataBox.Size = new System.Drawing.Size(250, 95);
             this.dataBox.TabIndex = 0;
             this.dataBox.TabStop = false;
             this.dataBox.Text = "Data";
@@ -129,13 +133,17 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.dataBox);
             this.Enabled = false;
+            this.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
             this.Name = "DataControl";
-            this.Size = new System.Drawing.Size(302, 194);
+            this.Size = new System.Drawing.Size(250, 95);
             this.dataBox.ResumeLayout(false);
             this.dataBox.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
 		}
 

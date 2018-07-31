@@ -51,9 +51,14 @@ namespace Crash.Helper.Controls
 			};
 
 			filler = "not found";
-		}
+        }
 
-		public void Rescan(bool skipFirstCheck = false)
+        public ProcessControl()
+        {
+            InitializeComponent();
+        }
+
+        public void Rescan(bool skipFirstCheck = false)
 		{
 			if (!skipFirstCheck && memory.HookProcess())
 			{

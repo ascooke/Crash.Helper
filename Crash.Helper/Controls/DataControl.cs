@@ -25,7 +25,17 @@ namespace Crash.Helper.Controls
 			memory.Masks.OnValueChange += OnMasksChange;
 
 			InitializeComponent();
-		}
+        }
+
+        public DataControl()
+        {
+            InitializeComponent();
+        }
+
+        //public void SetMemory(CrashMemory memory)
+        //{
+        //    this.memory = memory;
+        //}
 
 		private void OnLivesChange(int oldLives, int newLives)
 		{

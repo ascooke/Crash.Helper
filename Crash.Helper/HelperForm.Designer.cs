@@ -28,21 +28,39 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+            this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
+            // 
+            // flowLayoutPanel
+            // 
+            this.flowLayoutPanel.AutoSize = true;
+            this.flowLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel.Name = "flowLayoutPanel";
+            this.flowLayoutPanel.Padding = new System.Windows.Forms.Padding(10);
+            this.flowLayoutPanel.Size = new System.Drawing.Size(284, 261);
+            this.flowLayoutPanel.TabIndex = 0;
             // 
             // HelperForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(318, 258);
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.flowLayoutPanel);
             this.Name = "HelperForm";
             this.Text = "Crash Helper";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.HelperForm_FormClosing);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
 		}
 
-		#endregion
-	}
+        #endregion
+
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
+    }
 }
