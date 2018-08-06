@@ -17,17 +17,10 @@ namespace Crash.Helper
 	{
 		private const int Framerate = 10;
 
-		// See https://stackoverflow.com/questions/2450373/set-global-hotkeys-using-c-sharp.
-		[DllImport("user32.dll")]
-		private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
-
-		[DllImport("user32.dll")]
-		private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
-
 		private CrashMemory memory;
 		private DataControl dataControl;
+        private HotkeyControl hotkeyControl;
 		private ProcessControl processControl;
-		private List<Hotkey> hotkeys;
 		private Timer refreshTimer;
 
 		public HelperForm()
@@ -36,27 +29,27 @@ namespace Crash.Helper
 
 			memory = new CrashMemory();
 
-			dataControl = new DataControl(memory);
-			processControl = new ProcessControl(memory, dataControl, this);
-			processControl.Location = new Point(7, 7);
-			dataControl.Location = new Point(7, processControl.Bounds.Bottom + 2);
+            dataControl = new DataControl(memory);
+            hotkeyControl = new HotkeyControl(memory);
+            processControl = new ProcessControl(memory, dataControl, hotkeyControl, this)
+            {
+                Location = new Point(0, 0)
+            };
+			dataControl.Location = new Point(0, processControl.Bounds.Bottom);
+            hotkeyControl.Location = new Point(0, dataControl.Bounds.Bottom);
 
-			Controls.Add(processControl);
-			Controls.Add(dataControl);
+			flowLayoutPanel.Controls.Add(processControl);
+			flowLayoutPanel.Controls.Add(dataControl);
+            flowLayoutPanel.Controls.Add(hotkeyControl);
 
-			refreshTimer = new Timer();
-			refreshTimer.Interval = (int)(1000f / Framerate);
-			refreshTimer.Tick += (sender, e) => { RefreshHelper(); };
+			refreshTimer = new Timer
+            {
+                Interval = (int)(1000f / Framerate),
+            };
+            refreshTimer.Tick += (sender, e) => { RefreshHelper(); };
 
-			processControl.Rescan();
 
-			hotkeys = new List<Hotkey>();
-			hotkeys.Add(new Hotkey("Set zero lives: ", () =>
-			{
-				memory.Lives.Write(0);
-			}));
-
-			RegisterHotKey(Handle, 0, (uint)KeyModifiers.Alt, (uint)Keys.D.GetHashCode());
+            processControl.Rescan();
 		}
 
 		public bool RefreshEnabled
@@ -81,6 +74,7 @@ namespace Crash.Helper
 				refreshTimer.Stop();
 				processControl.OnUnhook();
 				dataControl.Enabled = false;
+                hotkeyControl.Enabled = false;
 
 				return;
 			}
@@ -88,26 +82,9 @@ namespace Crash.Helper
 			memory.Refresh();
 		}
 
-		protected override void WndProc(ref Message m)
-		{
-			base.WndProc(ref m);
-
-			if (m.Msg != 0x0312)
-			{
-				return;
-			}
-
-			Keys key = (Keys)(((int)m.LParam >> 16) & 0xFFFF);
-			KeyModifiers modifier = (KeyModifiers)((int)m.LParam & 0xFFFF);
-
-			int id = m.WParam.ToInt32();
-
-			hotkeys[id].Callback();
-		}
-
 		private void HelperForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			UnregisterHotKey(Handle, 0);
+			hotkeyControl.UnregisterHotKeys();
 		}
 	}
 }
