@@ -14,7 +14,6 @@ namespace Crash.Helper.Controls
 {
     public partial class HotkeyControl : UserControl
     {
-
         // See https://stackoverflow.com/questions/2450373/set-global-hotkeys-using-c-sharp.
         [DllImport("user32.dll")]
 		private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
@@ -23,15 +22,39 @@ namespace Crash.Helper.Controls
 		private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
         private CrashMemory memory;
-        private List<Hotkey> hotkeys;
+        private DataControl data;
+        private Hotkey[] hotkeys;
+	    private Label[] labels;
 
-        public HotkeyControl(CrashMemory memory)
+        public HotkeyControl(CrashMemory memory, DataControl data)
         {
             this.memory = memory;
-            InitializeHotKeys();
-            RegisterHotKeys();
+	        this.data = data;
 
+	        hotkeys = new []
+	        {
+		        new Hotkey("Set zero lives: ", KeyModifiers.Alt, (uint)Keys.D, () =>
+		        {
+			        memory.Lives.Write(0);
+			        data.Lives = 0;
+		        })
+	        };
+
+			foreach (Hotkey hotkey in hotkeys)
+	        {
+		        RegisterHotKey(Handle, 0, (uint)hotkey.Modifier, hotkey.Key);
+			}
+			
             InitializeComponent();
+
+	        labels = new []
+	        {
+				zeroLivesLabel,
+				zeroLivesHotkeyLabel
+	        };
+
+	        zeroLivesHotkeyLabel.Text = hotkeys[0].ToString();
+	        zeroLivesHotkeyLabel.ForeColor = Color.ForestGreen;
         }
 
         public HotkeyControl()
@@ -56,48 +79,25 @@ namespace Crash.Helper.Controls
             hotkeys[id].Callback();
         }
 
-        private void InitializeHotKeys()
+        public void UnregisterHotkeys()
         {
-            // TODO: Add ability to grab hotkey shortcuts from user settings
-            hotkeys = new List<Hotkey>
-            {
-                new Hotkey("Set zero lives: ", KeyModifiers.Alt, (uint)Keys.D.GetHashCode(), () =>
-                {
-                    memory.Lives.Write(0);
-                })
-            };
-        }
-
-        public void RegisterHotKeys()
-        {
-            for (int i = 0; i < hotkeys.Count; i++)
-            {
-                RegisterHotKey(Handle, 0, (uint)hotkeys[i].Modifier, hotkeys[i].Key);
-            }
-        }
-
-        public void UnregisterHotKeys()
-        {
-            for(int i = 0; i < hotkeys.Count; i++)
+            for(int i = 0; i < hotkeys.Length; i++)
             {
                 UnregisterHotKey(Handle, i);
             }
         }
 
-        private void enableCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void enabledCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            // This is slightly more explicit than it needs to be, but it
-            // protects against any unexpected race conditions
-            if (hotkeyBox.Enabled && !enableCheckBox.Checked)
+            if (!enabledCheckbox.Checked)
             {
-                UnregisterHotKeys();
-            }
-            else if (!hotkeyBox.Enabled && enableCheckBox.Checked)
-            {
-                RegisterHotKeys();
-            }
+	            UnregisterHotkeys();
+			}
 
-            hotkeyBox.Enabled = enableCheckBox.Checked;
+			foreach (Label label in labels)
+			{
+				label.Enabled = enabledCheckbox.Checked;
+			}
         }
     }
 }

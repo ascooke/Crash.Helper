@@ -34,5 +34,43 @@ namespace Crash.Helper
 		public string Label { get; }
 
 		public Action Callback { get; }
+
+		public override string ToString()
+		{
+			StringBuilder builder = new StringBuilder();
+
+			void AppendFunction(object value)
+			{
+				if (builder.Length > 0)
+				{
+					builder.Append(" + ");
+				}
+
+				builder.Append(value);
+			}
+
+			bool alt = (Modifier & KeyModifiers.Alt) > 0;
+			bool control = (Modifier & KeyModifiers.Control) > 0;
+			bool shift = (Modifier & KeyModifiers.Shift) > 0;
+
+			if (alt)
+			{
+				AppendFunction("Alt");
+			}
+
+			if (control)
+			{
+				AppendFunction("Ctrl");
+			}
+
+			if (control)
+			{
+				AppendFunction("Shift");
+			}
+
+			AppendFunction((char)Key);
+
+			return builder.ToString();
+		}
 	}
 }

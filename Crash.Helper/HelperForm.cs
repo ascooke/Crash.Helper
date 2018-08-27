@@ -28,27 +28,21 @@ namespace Crash.Helper
 			InitializeComponent();
 
 			memory = new CrashMemory();
-
-            dataControl = new DataControl(memory);
-            hotkeyControl = new HotkeyControl(memory);
-            processControl = new ProcessControl(memory, dataControl, hotkeyControl, this)
-            {
-                Location = new Point(0, 0)
-            };
-			dataControl.Location = new Point(0, processControl.Bounds.Bottom);
-            hotkeyControl.Location = new Point(0, dataControl.Bounds.Bottom);
+			dataControl = new DataControl(memory);
+			hotkeyControl = new HotkeyControl(memory, dataControl);
+			processControl = new ProcessControl(memory, dataControl, hotkeyControl, this);
 
 			flowLayoutPanel.Controls.Add(processControl);
 			flowLayoutPanel.Controls.Add(dataControl);
-            flowLayoutPanel.Controls.Add(hotkeyControl);
+			flowLayoutPanel.Controls.Add(hotkeyControl);
+			flowLayoutPanel.Height--;
 
 			refreshTimer = new Timer
             {
                 Interval = (int)(1000f / Framerate),
             };
+
             refreshTimer.Tick += (sender, e) => { RefreshHelper(); };
-
-
             processControl.Rescan();
 		}
 
@@ -84,7 +78,7 @@ namespace Crash.Helper
 
 		private void HelperForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			hotkeyControl.UnregisterHotKeys();
+			hotkeyControl.UnregisterHotkeys();
 		}
 	}
 }

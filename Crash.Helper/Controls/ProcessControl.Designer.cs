@@ -28,64 +28,62 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.processBox = new System.Windows.Forms.GroupBox();
-            this.helperCheckbox = new System.Windows.Forms.CheckBox();
-            this.processLabel = new System.Windows.Forms.Label();
-            this.processBox.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // processBox
-            // 
-            this.processBox.AutoSize = true;
-            this.processBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.processBox.Controls.Add(this.helperCheckbox);
-            this.processBox.Controls.Add(this.processLabel);
-            this.processBox.Location = new System.Drawing.Point(0, 0);
-            this.processBox.Margin = new System.Windows.Forms.Padding(0);
-            this.processBox.MinimumSize = new System.Drawing.Size(250, 0);
-            this.processBox.Name = "processBox";
-            this.processBox.Size = new System.Drawing.Size(250, 56);
-            this.processBox.TabIndex = 0;
-            this.processBox.TabStop = false;
-            this.processBox.Text = "Process";
-            // 
-            // helperCheckbox
-            // 
-            this.helperCheckbox.AutoSize = true;
-            this.helperCheckbox.Checked = true;
-            this.helperCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.helperCheckbox.Location = new System.Drawing.Point(7, 20);
-            this.helperCheckbox.Name = "helperCheckbox";
-            this.helperCheckbox.Size = new System.Drawing.Size(98, 17);
-            this.helperCheckbox.TabIndex = 1;
-            this.helperCheckbox.Text = "Helper enabled";
-            this.helperCheckbox.UseVisualStyleBackColor = true;
-            this.helperCheckbox.CheckedChanged += new System.EventHandler(this.helperCheckbox_CheckedChanged);
-            // 
-            // processLabel
-            // 
-            this.processLabel.AutoSize = true;
-            this.processLabel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.processLabel.Location = new System.Drawing.Point(107, 21);
-            this.processLabel.Name = "processLabel";
-            this.processLabel.Size = new System.Drawing.Size(51, 13);
-            this.processLabel.TabIndex = 0;
-            this.processLabel.Text = "[Process]";
-            // 
-            // ProcessControl
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Controls.Add(this.processBox);
-            this.Margin = new System.Windows.Forms.Padding(0);
-            this.Name = "ProcessControl";
-            this.Size = new System.Drawing.Size(250, 56);
-            this.processBox.ResumeLayout(false);
-            this.processBox.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+			this.processBox = new System.Windows.Forms.GroupBox();
+			this.helperCheckbox = new System.Windows.Forms.CheckBox();
+			this.processLabel = new System.Windows.Forms.Label();
+			this.processBox.SuspendLayout();
+			this.SuspendLayout();
+			// 
+			// processBox
+			// 
+			this.processBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.processBox.Controls.Add(this.helperCheckbox);
+			this.processBox.Controls.Add(this.processLabel);
+			this.processBox.Location = new System.Drawing.Point(0, 0);
+			this.processBox.Margin = new System.Windows.Forms.Padding(0);
+			this.processBox.MinimumSize = new System.Drawing.Size(250, 0);
+			this.processBox.Name = "processBox";
+			this.processBox.Size = new System.Drawing.Size(285, 42);
+			this.processBox.TabIndex = 0;
+			this.processBox.TabStop = false;
+			this.processBox.Text = "Process";
+			// 
+			// helperCheckbox
+			// 
+			this.helperCheckbox.AutoSize = true;
+			this.helperCheckbox.Checked = true;
+			this.helperCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.helperCheckbox.Location = new System.Drawing.Point(7, 20);
+			this.helperCheckbox.Name = "helperCheckbox";
+			this.helperCheckbox.Size = new System.Drawing.Size(98, 17);
+			this.helperCheckbox.TabIndex = 1;
+			this.helperCheckbox.Text = "Helper enabled";
+			this.helperCheckbox.UseVisualStyleBackColor = true;
+			this.helperCheckbox.CheckedChanged += new System.EventHandler(this.helperCheckbox_CheckedChanged);
+			// 
+			// processLabel
+			// 
+			this.processLabel.AutoSize = true;
+			this.processLabel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.processLabel.Location = new System.Drawing.Point(107, 21);
+			this.processLabel.Name = "processLabel";
+			this.processLabel.Size = new System.Drawing.Size(51, 13);
+			this.processLabel.TabIndex = 0;
+			this.processLabel.Text = "[Process]";
+			// 
+			// ProcessControl
+			// 
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.AutoSize = true;
+			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.Controls.Add(this.processBox);
+			this.Margin = new System.Windows.Forms.Padding(0);
+			this.Name = "ProcessControl";
+			this.Size = new System.Drawing.Size(285, 42);
+			this.processBox.ResumeLayout(false);
+			this.processBox.PerformLayout();
+			this.ResumeLayout(false);
 
 		}
 
