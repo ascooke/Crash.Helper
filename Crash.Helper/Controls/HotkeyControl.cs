@@ -40,12 +40,8 @@ namespace Crash.Helper.Controls
 		        })
 	        };
 
-			foreach (Hotkey hotkey in hotkeys)
-	        {
-		        RegisterHotKey(Handle, 0, (uint)hotkey.Modifier, hotkey.Key);
-			}
-			
             InitializeComponent();
+	        RegisterHotkeys();
 
 	        labels = new []
 	        {
@@ -57,12 +53,23 @@ namespace Crash.Helper.Controls
 	        zeroLivesHotkeyLabel.ForeColor = Color.ForestGreen;
         }
 
-        public HotkeyControl()
-        {
-            InitializeComponent();
-        }
+	    public void RegisterHotkeys()
+	    {
+		    foreach (Hotkey hotkey in hotkeys)
+		    {
+			    RegisterHotKey(Handle, 0, (uint)hotkey.Modifier, hotkey.Key);
+		    }
+		}
 
-        protected override void WndProc(ref Message m)
+	    public void UnregisterHotkeys()
+	    {
+		    for (int i = 0; i < hotkeys.Length; i++)
+		    {
+			    UnregisterHotKey(Handle, i);
+		    }
+	    }
+
+		protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
 
@@ -79,19 +86,15 @@ namespace Crash.Helper.Controls
             hotkeys[id].Callback();
         }
 
-        public void UnregisterHotkeys()
-        {
-            for(int i = 0; i < hotkeys.Length; i++)
-            {
-                UnregisterHotKey(Handle, i);
-            }
-        }
-
         private void enabledCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            if (!enabledCheckbox.Checked)
-            {
-	            UnregisterHotkeys();
+	        if (enabledCheckbox.Checked)
+	        {
+		        RegisterHotkeys();
+	        }
+			else if (!enabledCheckbox.Checked)
+			{
+				UnregisterHotkeys();
 			}
 
 			foreach (Label label in labels)
