@@ -76,7 +76,7 @@
             // 
             this.giveMaskHotkeyTextbox.Location = new System.Drawing.Point(97, 59);
             this.giveMaskHotkeyTextbox.Name = "giveMaskHotkeyTextbox";
-            this.giveMaskHotkeyTextbox.Size = new System.Drawing.Size(50, 20);
+            this.giveMaskHotkeyTextbox.Size = new System.Drawing.Size(20, 20);
             this.giveMaskHotkeyTextbox.TabIndex = 7;
             this.giveMaskHotkeyTextbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.giveMaskHotkeyTextbox.Visible = false;
@@ -87,7 +87,7 @@
             this.zeroLivesHotkeyTextbox.Location = new System.Drawing.Point(97, 40);
             this.zeroLivesHotkeyTextbox.MaxLength = 1;
             this.zeroLivesHotkeyTextbox.Name = "zeroLivesHotkeyTextbox";
-            this.zeroLivesHotkeyTextbox.Size = new System.Drawing.Size(50, 20);
+            this.zeroLivesHotkeyTextbox.Size = new System.Drawing.Size(20, 20);
             this.zeroLivesHotkeyTextbox.TabIndex = 6;
             this.zeroLivesHotkeyTextbox.Visible = false;
             this.zeroLivesHotkeyTextbox.TextChanged += new System.EventHandler(this.hotkeyTextbox_TextChanged);
