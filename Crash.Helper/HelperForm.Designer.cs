@@ -50,7 +50,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackColor = System.Drawing.SystemColors.Menu;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.flowLayoutPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

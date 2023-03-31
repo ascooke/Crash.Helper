@@ -35,12 +35,12 @@ namespace Crash.Helper.Controls
 
 	        hotkeys = new []
 	        {
-		        new Hotkey("Set zero lives: ", 0, (uint)Keys.D, () =>
+		        new Hotkey("Set zero lives: ", 0, (uint)Keys.O, () =>
 		        {
 			        memory.Lives.Write(0);
 					data.Lives = 0;
 		        }),
-				new Hotkey("Give one mask: ", 0, (uint)Keys.F,() =>
+				new Hotkey("Give one mask: ", 0, (uint)Keys.P,() =>
 				{
 					int masks = memory.Masks.Read() + 1;
 					if(masks > 2) return;

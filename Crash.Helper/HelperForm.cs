@@ -26,7 +26,6 @@ namespace Crash.Helper
 		public HelperForm()
 		{
 			InitializeComponent();
-
 			memory = new CrashMemory();
 			dataControl = new DataControl(memory);
 			hotkeyControl = new HotkeyControl(memory, dataControl);
