@@ -67,8 +67,14 @@ namespace Crash.Helper
 			{
 				AppendFunction("Shift");
 			}
-
-			AppendFunction((char)Key);
+			if (Key == (uint)System.Windows.Forms.Keys.Add)
+			{
+				AppendFunction('+');
+			} else
+			{
+                AppendFunction((char)Key);
+            }
+			
 
 			return builder.ToString();
 		}

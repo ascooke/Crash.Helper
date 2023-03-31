@@ -37,7 +37,12 @@ namespace Crash.Helper.Controls
 		        {
 			        memory.Lives.Write(0);
 			        data.Lives = 0;
-		        })
+		        }),
+				new Hotkey("Give one mask: ", 0, (uint)Keys.Add,() =>
+				{
+					int masks = memory.Masks.Read() + 1;
+					memory.Masks.Write(masks);
+				})
 	        };
 
             InitializeComponent();
@@ -46,18 +51,23 @@ namespace Crash.Helper.Controls
 	        labels = new []
 	        {
 				zeroLivesLabel,
-				zeroLivesHotkeyLabel
+				zeroLivesHotkeyLabel,
+				giveMaskLabel,
+				giveMaskHotkeyLabel
 	        };
 
 	        zeroLivesHotkeyLabel.Text = hotkeys[0].ToString();
 	        zeroLivesHotkeyLabel.ForeColor = Color.ForestGreen;
+			giveMaskHotkeyLabel.Text = hotkeys[1].ToString();
+			giveMaskHotkeyLabel.ForeColor = Color.ForestGreen;
         }
 
 	    public void RegisterHotkeys()
 	    {
+			int keyCount = 0;
 		    foreach (Hotkey hotkey in hotkeys)
 		    {
-			    RegisterHotKey(Handle, 0, (uint)hotkey.Modifier, hotkey.Key);
+			    RegisterHotKey(Handle, keyCount++, (uint)hotkey.Modifier, hotkey.Key);
 		    }
 		}
 
