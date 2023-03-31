@@ -31,6 +31,9 @@ namespace Crash.Helper
 		public KeyModifiers Modifier { get; set; }
 
 		public uint Key { get; set; }
+
+		public int ID { get; set; }
+		
 		public string Label { get; }
 
 		public Action Callback { get; }

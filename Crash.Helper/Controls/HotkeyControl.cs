@@ -25,6 +25,8 @@ namespace Crash.Helper.Controls
         private DataControl data;
         private Hotkey[] hotkeys;
 	    private Label[] labels;
+		private Label[] hotkeyLabels;
+		private TextBox[] textboxes;
 
         public HotkeyControl(CrashMemory memory, DataControl data)
         {
@@ -33,29 +35,42 @@ namespace Crash.Helper.Controls
 
 	        hotkeys = new []
 	        {
-		        new Hotkey("Set zero lives: ", KeyModifiers.Alt, (uint)Keys.D, () =>
+		        new Hotkey("Set zero lives: ", 0, (uint)Keys.D, () =>
 		        {
 			        memory.Lives.Write(0);
-			        data.Lives = 0;
+					data.Lives = 0;
 		        }),
-				new Hotkey("Give one mask: ", 0, (uint)Keys.Add,() =>
+				new Hotkey("Give one mask: ", 0, (uint)Keys.F,() =>
 				{
 					int masks = memory.Masks.Read() + 1;
+					if(masks > 2) return;
 					memory.Masks.Write(masks);
+					data.Masks = masks;
 				})
 	        };
 
             InitializeComponent();
 	        RegisterHotkeys();
 
+			//Keep these ordered
 	        labels = new []
 	        {
 				zeroLivesLabel,
-				zeroLivesHotkeyLabel,
-				giveMaskLabel,
-				giveMaskHotkeyLabel
+				giveMaskLabel
 	        };
 
+			hotkeyLabels = new[]
+			{
+				zeroLivesHotkeyLabel,
+				giveMaskHotkeyLabel
+			};
+
+			textboxes = new []
+			{
+				zeroLivesHotkeyTextbox,
+				giveMaskHotkeyTextbox
+			};
+			
 	        zeroLivesHotkeyLabel.Text = hotkeys[0].ToString();
 	        zeroLivesHotkeyLabel.ForeColor = Color.ForestGreen;
 			giveMaskHotkeyLabel.Text = hotkeys[1].ToString();
@@ -67,7 +82,7 @@ namespace Crash.Helper.Controls
 			int keyCount = 0;
 		    foreach (Hotkey hotkey in hotkeys)
 		    {
-			    RegisterHotKey(Handle, keyCount++, (uint)hotkey.Modifier, hotkey.Key);
+				RegisterHotKey(Handle, keyCount++, (uint)hotkey.Modifier, hotkey.Key);
 		    }
 		}
 
@@ -111,6 +126,41 @@ namespace Crash.Helper.Controls
 			{
 				label.Enabled = enabledCheckbox.Checked;
 			}
+        }
+
+		private void hotkeyLabelClicked(object sender, EventArgs e)
+		{
+			int j;
+			for (int i = 0; i < textboxes.Length; i++)
+			{
+				textboxes[i].Visible = false;
+			}
+			for (j = 0; hotkeyLabels[j] != (Label) sender; j++){ }
+			textboxes[j].Visible = true;
+			textboxes[j].Focus();
+		}
+
+        private void hotkeyTextbox_TextChanged(object sender, EventArgs e)
+        {
+			TextBox changedTextBox = (TextBox)sender;
+			if(changedTextBox.Text == "")
+			{
+				changedTextBox.Visible = false;
+				return;
+			}
+
+			char newHotkey = char.ToUpper(changedTextBox.Text[0]);
+
+			int i;
+            for (i = 0; textboxes[i] != changedTextBox; i++) { }
+            
+			hotkeys[i].Key = newHotkey;
+			UnregisterHotkeys();
+			RegisterHotkeys();
+
+			hotkeyLabels[i].Text = ((char) hotkeys[i].Key).ToString();
+			textboxes[i].Visible = false;
+			textboxes[i].Text = "";
         }
     }
 }

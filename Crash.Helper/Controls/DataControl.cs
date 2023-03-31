@@ -37,6 +37,11 @@ namespace Crash.Helper.Controls
 			set => RefreshLives(value);
 		}
 
+		public int Masks
+		{
+			set => RefreshMasks(value);
+		}
+
 		private void OnLivesChange(int oldLives, int newLives)
 		{
 			if (freezeLivesCheckbox.Checked)
