@@ -50,11 +50,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.flowLayoutPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "HelperForm";
             this.Text = "Crash Helper";
+            this.TransparencyKey = System.Drawing.Color.DarkGray;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.HelperForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();

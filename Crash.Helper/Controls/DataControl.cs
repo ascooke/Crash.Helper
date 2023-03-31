@@ -56,7 +56,13 @@ namespace Crash.Helper.Controls
 
 		private void OnMasksChange(int oldMasks, int newMasks)
 		{
-			RefreshMasks();
+			if (freezeMasksCheckbox.Checked)
+			{
+				FreezeMasks();
+			} else
+			{
+				RefreshMasks();
+			}
 		}
 
 		private void livesUpButton_Click(object sender, EventArgs e)
@@ -88,7 +94,19 @@ namespace Crash.Helper.Controls
 			}
 		}
 
-		private void masksUpButton_Click(object sender, EventArgs e)
+        private void freezeMasksCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (freezeMasksCheckbox.Checked)
+            {
+                FreezeMasks();
+            }
+            else
+            {
+                masksLabel.ForeColor = Color.Black;
+            }
+        }
+
+        private void masksUpButton_Click(object sender, EventArgs e)
 		{
 			int newMasks = memory.Masks.Read() + 1;
 
@@ -108,6 +126,16 @@ namespace Crash.Helper.Controls
 		{
 			storedLives = memory.Lives.Read();
 			livesLabel.ForeColor = Color.DodgerBlue;
+		}
+
+		private void FreezeMasks()
+		{
+			if (memory.Masks.Read() != 0)
+			{
+                memory.Masks.Write(2);
+                RefreshMasks(2);
+                masksLabel.ForeColor = Color.DodgerBlue;
+            }
 		}
 
 		private void RefreshLives(int newLives = -1)
@@ -143,6 +171,10 @@ namespace Crash.Helper.Controls
 				if (freezeLivesCheckbox.Checked)
 				{
 					FreezeLives();
+				}
+				if (freezeMasksCheckbox.Checked)
+				{
+					FreezeMasks();
 				}
 			}
 		}
