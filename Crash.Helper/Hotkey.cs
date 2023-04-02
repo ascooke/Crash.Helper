@@ -66,7 +66,7 @@ namespace Crash.Helper
 				AppendFunction("Ctrl");
 			}
 
-			if (control)
+			if (shift)
 			{
 				AppendFunction("Shift");
 			}

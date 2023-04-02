@@ -35,12 +35,12 @@ namespace Crash.Helper.Controls
 
 	        hotkeys = new []
 	        {
-		        new Hotkey("Set zero lives: ", 0, (uint)Keys.O, () =>
+		        new Hotkey("Set zero lives: ", KeyModifiers.Shift, (uint)Keys.D, () =>
 		        {
 			        memory.Lives.Write(0);
 					data.Lives = 0;
 		        }),
-				new Hotkey("Give one mask: ", 0, (uint)Keys.P,() =>
+				new Hotkey("Give one mask: ", KeyModifiers.Shift, (uint)Keys.F,() =>
 				{
 					int masks = memory.Masks.Read() + 1;
 					if(masks > 2) return;
@@ -97,18 +97,21 @@ namespace Crash.Helper.Controls
 		protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
+			
+			Keys key;
+			KeyModifiers modifier;
 
-            if (m.Msg != 0x0312)
-            {
-                return;
-            }
-
-            Keys key = (Keys)(((int)m.LParam >> 16) & 0xFFFF);
-            KeyModifiers modifier = (KeyModifiers)((int)m.LParam & 0xFFFF);
-
-            int id = m.WParam.ToInt32();
-
-            hotkeys[id].Callback();
+			switch (m.Msg)
+			{ 
+				case 0x0312:
+                    key = (Keys)(((int)m.LParam >> 16) & 0xFFFF);
+                    modifier = (KeyModifiers)((int)m.LParam & 0xFFFF);
+                    int id = m.WParam.ToInt32();
+                    hotkeys[id].Callback();
+                    break;
+				default:
+					break;	
+			}   
         }
 
         private void enabledCheckbox_CheckedChanged(object sender, EventArgs e)
@@ -136,31 +139,32 @@ namespace Crash.Helper.Controls
 				textboxes[i].Visible = false;
 			}
 			for (j = 0; hotkeyLabels[j] != (Label) sender; j++){ }
+			((Label)sender).Visible = false;
 			textboxes[j].Visible = true;
 			textboxes[j].Focus();
 		}
-
-        private void hotkeyTextbox_TextChanged(object sender, EventArgs e)
+        private void hotkeyTextboxChanged(object sender, EventArgs e)
         {
-			TextBox changedTextBox = (TextBox)sender;
-			if(changedTextBox.Text == "")
-			{
-				changedTextBox.Visible = false;
-				return;
-			}
+			if (((TextBox)sender).Text == "") return;
 
-			char newHotkey = char.ToUpper(changedTextBox.Text[0]);
+            int i;
+            for (i = 0; textboxes[i] != (TextBox)sender; i++) { }
 
-			int i;
-            for (i = 0; textboxes[i] != changedTextBox; i++) { }
-            
-			hotkeys[i].Key = newHotkey;
-			UnregisterHotkeys();
-			RegisterHotkeys();
+            uint key = ((TextBox)sender).Text.ToUpper()[0];
+            hotkeys[i].Key = key;
 
-			hotkeyLabels[i].Text = ((char) hotkeys[i].Key).ToString();
-			textboxes[i].Visible = false;
-			textboxes[i].Text = "";
+			int modifier = 0;
+            if (ModifierKeys.HasFlag(Keys.Shift)) modifier = 4;
+            else if (ModifierKeys.HasFlag(Keys.Control)) modifier = 2;
+            else if (ModifierKeys.HasFlag(Keys.Alt)) modifier = 1;
+
+            hotkeys[i].Modifier = (KeyModifiers)modifier;
+            UnregisterHotkeys();
+            RegisterHotkeys();
+            hotkeyLabels[i].Text = hotkeys[i].ToString();
+            textboxes[i].Visible = false;
+            hotkeyLabels[i].Visible = true;
+            textboxes[i].Text = "";
         }
     }
 }

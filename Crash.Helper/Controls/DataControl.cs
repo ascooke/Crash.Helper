@@ -47,6 +47,7 @@ namespace Crash.Helper.Controls
 			if (freezeLivesCheckbox.Checked)
 			{
 				memory.Lives.Write(storedLives);
+				RefreshMasks(2);
 			}
 			else
 			{
@@ -59,7 +60,8 @@ namespace Crash.Helper.Controls
 			if (freezeMasksCheckbox.Checked)
 			{
 				FreezeMasks();
-			} else
+			} 
+			else
 			{
 				RefreshMasks();
 			}
