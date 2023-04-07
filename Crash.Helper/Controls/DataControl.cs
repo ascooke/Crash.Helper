@@ -138,6 +138,11 @@ namespace Crash.Helper.Controls
                 RefreshMasks(2);
                 masksLabel.ForeColor = Color.DodgerBlue;
             }
+			else
+			{
+				memory.Masks.Write(0);
+				RefreshMasks(0);
+			}
 		}
 
 		private void RefreshLives(int newLives = -1)
