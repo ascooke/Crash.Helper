@@ -36,7 +36,7 @@
             this.livesLabel = new System.Windows.Forms.Label();
             this.masksLabel = new System.Windows.Forms.Label();
             this.dataBox = new System.Windows.Forms.GroupBox();
-            this.freezeMasksCheckbox = new System.Windows.Forms.CheckBox();
+            this.infiniteMasksCheckbox = new System.Windows.Forms.CheckBox();
             this.dataBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -115,7 +115,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.dataBox.Controls.Add(this.freezeMasksCheckbox);
+            this.dataBox.Controls.Add(this.infiniteMasksCheckbox);
             this.dataBox.Controls.Add(this.masksLabel);
             this.dataBox.Controls.Add(this.livesLabel);
             this.dataBox.Controls.Add(this.freezeLivesCheckbox);
@@ -133,16 +133,16 @@
             this.dataBox.Text = "Data";
             this.dataBox.EnabledChanged += new System.EventHandler(this.dataBox_EnabledChanged);
             // 
-            // freezeMasksCheckbox
+            // infiniteMasksCheckbox
             // 
-            this.freezeMasksCheckbox.AutoSize = true;
-            this.freezeMasksCheckbox.Location = new System.Drawing.Point(125, 54);
-            this.freezeMasksCheckbox.Name = "freezeMasksCheckbox";
-            this.freezeMasksCheckbox.Size = new System.Drawing.Size(91, 17);
-            this.freezeMasksCheckbox.TabIndex = 15;
-            this.freezeMasksCheckbox.Text = "Freeze masks";
-            this.freezeMasksCheckbox.UseVisualStyleBackColor = true;
-            this.freezeMasksCheckbox.CheckedChanged += new System.EventHandler(this.freezeMasksCheckbox_CheckedChanged);
+            this.infiniteMasksCheckbox.AutoSize = true;
+            this.infiniteMasksCheckbox.Location = new System.Drawing.Point(125, 54);
+            this.infiniteMasksCheckbox.Name = "infiniteMasksCheckbox";
+            this.infiniteMasksCheckbox.Size = new System.Drawing.Size(90, 17);
+            this.infiniteMasksCheckbox.TabIndex = 15;
+            this.infiniteMasksCheckbox.Text = "Infinite masks";
+            this.infiniteMasksCheckbox.UseVisualStyleBackColor = true;
+            this.infiniteMasksCheckbox.CheckedChanged += new System.EventHandler(this.infiniteMasksCheckbox_CheckedChanged);
             // 
             // DataControl
             // 
@@ -170,6 +170,6 @@
         private System.Windows.Forms.Label livesLabel;
         private System.Windows.Forms.Label masksLabel;
         private System.Windows.Forms.GroupBox dataBox;
-        private System.Windows.Forms.CheckBox freezeMasksCheckbox;
+        private System.Windows.Forms.CheckBox infiniteMasksCheckbox;
     }
 }

@@ -47,23 +47,22 @@ namespace Crash.Helper.Controls
 			if (freezeLivesCheckbox.Checked)
 			{
 				memory.Lives.Write(storedLives);
-				RefreshMasks(2);
 			}
 			else
 			{
-				RefreshLives();
+				RefreshLives(memory.Lives.Read());
 			}
 		}
 
 		private void OnMasksChange(int oldMasks, int newMasks)
 		{
-			if (freezeMasksCheckbox.Checked)
+			if (infiniteMasksCheckbox.Checked)
 			{
 				FreezeMasks();
-			} 
+            } 
 			else
 			{
-				RefreshMasks();
+				RefreshMasks(memory.Masks.Read());
 			}
 		}
 
@@ -96,9 +95,9 @@ namespace Crash.Helper.Controls
 			}
 		}
 
-        private void freezeMasksCheckbox_CheckedChanged(object sender, EventArgs e)
+        private void infiniteMasksCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            if (freezeMasksCheckbox.Checked)
+            if (infiniteMasksCheckbox.Checked)
             {
                 FreezeMasks();
             }
@@ -172,14 +171,14 @@ namespace Crash.Helper.Controls
 		{
 			if (Enabled)
 			{
-				RefreshLives();
-				RefreshMasks();
+				RefreshLives(memory.Lives.Read());
+				RefreshMasks(memory.Masks.Read());
 
 				if (freezeLivesCheckbox.Checked)
 				{
 					FreezeLives();
 				}
-				if (freezeMasksCheckbox.Checked)
+				if (infiniteMasksCheckbox.Checked)
 				{
 					FreezeMasks();
 				}
