@@ -17,6 +17,8 @@ namespace Crash.Helper.Controls
 
 		private int storedLives = 1;
 
+		private bool isMaskFormOnDamage = false;
+
 		public DataControl(CrashMemory memory)
 		{
 			this.memory = memory;
@@ -133,9 +135,18 @@ namespace Crash.Helper.Controls
 		{
 			if (memory.Masks.Read() != 0)
 			{
-                memory.Masks.Write(2);
-                RefreshMasks(2);
-                masksLabel.ForeColor = Color.DodgerBlue;
+                if (isMaskFormOnDamage && memory.Masks.Read() != 3)
+                {
+                    memory.Masks.Write(4);
+                    RefreshMasks(4);
+                    masksLabel.ForeColor = Color.DodgerBlue;
+                }
+				else
+				{
+                    memory.Masks.Write(2);
+                    RefreshMasks(2);
+                    masksLabel.ForeColor = Color.DodgerBlue;
+                }
             }
 			else
 			{
@@ -184,5 +195,19 @@ namespace Crash.Helper.Controls
 				}
 			}
 		}
+        private void MaskformOnDamage_Click(object sender, EventArgs e)
+        {
+			isMaskFormOnDamage = !isMaskFormOnDamage;
+			if (isMaskFormOnDamage)
+			{
+                memory.Masks.Write(4);
+                RefreshMasks(4);
+            }
+			else
+			{
+				memory.Masks.Write(2);
+				RefreshMasks(2);
+			}
+        }
     }
 }
