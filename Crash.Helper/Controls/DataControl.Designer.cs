@@ -36,8 +36,8 @@
             this.livesLabel = new System.Windows.Forms.Label();
             this.masksLabel = new System.Windows.Forms.Label();
             this.dataBox = new System.Windows.Forms.GroupBox();
-            this.MaskformOnDamage = new System.Windows.Forms.Button();
             this.infiniteMasksCheckbox = new System.Windows.Forms.CheckBox();
+            this.DamageMaskformCheckbox = new System.Windows.Forms.CheckBox();
             this.dataBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -116,7 +116,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.dataBox.Controls.Add(this.MaskformOnDamage);
+            this.dataBox.Controls.Add(this.DamageMaskformCheckbox);
             this.dataBox.Controls.Add(this.infiniteMasksCheckbox);
             this.dataBox.Controls.Add(this.masksLabel);
             this.dataBox.Controls.Add(this.livesLabel);
@@ -135,26 +135,31 @@
             this.dataBox.Text = "Data";
             this.dataBox.EnabledChanged += new System.EventHandler(this.dataBox_EnabledChanged);
             // 
-            // MaskformOnDamage
-            // 
-            this.MaskformOnDamage.BackColor = System.Drawing.Color.Red;
-            this.MaskformOnDamage.Location = new System.Drawing.Point(222, 54);
-            this.MaskformOnDamage.Name = "MaskformOnDamage";
-            this.MaskformOnDamage.Size = new System.Drawing.Size(29, 17);
-            this.MaskformOnDamage.TabIndex = 16;
-            this.MaskformOnDamage.UseVisualStyleBackColor = false;
-            this.MaskformOnDamage.Click += new System.EventHandler(this.MaskformOnDamage_Click);
-            // 
             // infiniteMasksCheckbox
             // 
             this.infiniteMasksCheckbox.AutoSize = true;
-            this.infiniteMasksCheckbox.Location = new System.Drawing.Point(125, 54);
+            this.infiniteMasksCheckbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.infiniteMasksCheckbox.Location = new System.Drawing.Point(125, 47);
             this.infiniteMasksCheckbox.Name = "infiniteMasksCheckbox";
             this.infiniteMasksCheckbox.Size = new System.Drawing.Size(90, 17);
             this.infiniteMasksCheckbox.TabIndex = 15;
             this.infiniteMasksCheckbox.Text = "Infinite masks";
             this.infiniteMasksCheckbox.UseVisualStyleBackColor = true;
             this.infiniteMasksCheckbox.CheckedChanged += new System.EventHandler(this.infiniteMasksCheckbox_CheckedChanged);
+            // 
+            // DamageMaskformCheckbox
+            // 
+            this.DamageMaskformCheckbox.AutoSize = true;
+            this.DamageMaskformCheckbox.BackColor = System.Drawing.SystemColors.Control;
+            this.DamageMaskformCheckbox.Enabled = false;
+            this.DamageMaskformCheckbox.Location = new System.Drawing.Point(125, 61);
+            this.DamageMaskformCheckbox.Name = "DamageMaskformCheckbox";
+            this.DamageMaskformCheckbox.Size = new System.Drawing.Size(115, 17);
+            this.DamageMaskformCheckbox.TabIndex = 16;
+            this.DamageMaskformCheckbox.Text = "Maskform when hit";
+            this.DamageMaskformCheckbox.UseVisualStyleBackColor = false;
+            this.DamageMaskformCheckbox.CheckedChanged += new System.EventHandler(this.damageMaskformCheckbox_CheckedChanged);
+            this.DamageMaskformCheckbox.EnabledChanged += new System.EventHandler(this.damageMaskformCheckbox_EnabledChanged);
             // 
             // DataControl
             // 
@@ -183,6 +188,6 @@
         private System.Windows.Forms.Label masksLabel;
         private System.Windows.Forms.GroupBox dataBox;
         private System.Windows.Forms.CheckBox infiniteMasksCheckbox;
-        private System.Windows.Forms.Button MaskformOnDamage;
+        private System.Windows.Forms.CheckBox DamageMaskformCheckbox;
     }
 }

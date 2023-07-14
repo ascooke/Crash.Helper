@@ -102,10 +102,28 @@ namespace Crash.Helper.Controls
             if (infiniteMasksCheckbox.Checked)
             {
                 FreezeMasks();
+				DamageMaskformCheckbox.Enabled = true;
             }
             else
             {
                 masksLabel.ForeColor = Color.Black;
+				DamageMaskformCheckbox.Enabled = false;
+            }
+        }
+
+		private void damageMaskformCheckbox_CheckedChanged(object sender, EventArgs e)
+		{
+			if (DamageMaskformCheckbox.Checked)
+            {
+				isMaskFormOnDamage = true;
+                memory.Masks.Write(4);
+                RefreshMasks(4);
+            }
+            else
+            {
+				isMaskFormOnDamage = false;
+                memory.Masks.Write(2);
+                RefreshMasks(2);
             }
         }
 
@@ -195,18 +213,13 @@ namespace Crash.Helper.Controls
 				}
 			}
 		}
-        private void MaskformOnDamage_Click(object sender, EventArgs e)
+
+        private void damageMaskformCheckbox_EnabledChanged(object sender, EventArgs e)
         {
-			isMaskFormOnDamage = !isMaskFormOnDamage;
-			if (isMaskFormOnDamage)
+			if (!DamageMaskformCheckbox.Enabled)
 			{
-                memory.Masks.Write(4);
-                RefreshMasks(4);
-            }
-			else
-			{
-				memory.Masks.Write(2);
-				RefreshMasks(2);
+				DamageMaskformCheckbox.Checked = false;
+				isMaskFormOnDamage = false;
 			}
         }
     }
