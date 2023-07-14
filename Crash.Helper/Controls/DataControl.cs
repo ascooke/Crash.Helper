@@ -17,6 +17,8 @@ namespace Crash.Helper.Controls
 
 		private int storedLives = 1;
 
+		private bool isMaskFormOnDamage = false;
+
 		public DataControl(CrashMemory memory)
 		{
 			this.memory = memory;
@@ -100,10 +102,28 @@ namespace Crash.Helper.Controls
             if (infiniteMasksCheckbox.Checked)
             {
                 FreezeMasks();
+				DamageMaskformCheckbox.Enabled = true;
             }
             else
             {
                 masksLabel.ForeColor = Color.Black;
+				DamageMaskformCheckbox.Enabled = false;
+            }
+        }
+
+		private void damageMaskformCheckbox_CheckedChanged(object sender, EventArgs e)
+		{
+			if (DamageMaskformCheckbox.Checked)
+            {
+				isMaskFormOnDamage = true;
+                memory.Masks.Write(4);
+                RefreshMasks(4);
+            }
+            else
+            {
+				isMaskFormOnDamage = false;
+                memory.Masks.Write(2);
+                RefreshMasks(2);
             }
         }
 
@@ -133,9 +153,18 @@ namespace Crash.Helper.Controls
 		{
 			if (memory.Masks.Read() != 0)
 			{
-                memory.Masks.Write(2);
-                RefreshMasks(2);
-                masksLabel.ForeColor = Color.DodgerBlue;
+                if (isMaskFormOnDamage && memory.Masks.Read() != 3)
+                {
+                    memory.Masks.Write(4);
+                    RefreshMasks(4);
+                    masksLabel.ForeColor = Color.DodgerBlue;
+                }
+				else
+				{
+                    memory.Masks.Write(2);
+                    RefreshMasks(2);
+                    masksLabel.ForeColor = Color.DodgerBlue;
+                }
             }
 			else
 			{
@@ -184,5 +213,14 @@ namespace Crash.Helper.Controls
 				}
 			}
 		}
+
+        private void damageMaskformCheckbox_EnabledChanged(object sender, EventArgs e)
+        {
+			if (!DamageMaskformCheckbox.Enabled)
+			{
+				DamageMaskformCheckbox.Checked = false;
+				isMaskFormOnDamage = false;
+			}
+        }
     }
 }
