@@ -8,6 +8,8 @@
 
 <b>Infinite masks:</b> Keeps your masks frozen at 2. Does not prevent mask form. If you have zero masks, it does nothing, as to avoid the above invincibility bug.
 
+<b>Maskform on hit:</b> Keeps your masks frozen at 4. This allows you to enter mask form by taking damage. Only available if infinite masks is also checked.
+
 <b>Zero lives hotkey:</b> A hotkey that can be set and will set your life counter to zero. Useful for people with long load times so they can game over to reload a level rather than return to the hub and back.
 
 <b>Increment mask hotkey:</b> A hotkey that can be set and will increment your mask counter up to a max of 2.
